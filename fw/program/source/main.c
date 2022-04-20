@@ -39,7 +39,7 @@
 
 #include "debug_frmwrk.h"
 
-#include "spi_control.h"
+//  #include "spi_control.h"
 #include "led.h"
 #include "log.h"
 #include "usb_handler.h"
@@ -230,32 +230,32 @@ static void pinConfig(void)
 
   // CS for DAC is controlled via P1.20 and not SSP1_SSEL.
   // Pin P1.20 should be configured as GPIO and set high.
-  scu_pinmux(0x1, 20, SETTINGS_GPIO_OUT, FUNC0); //GPIO0[15], available on J7-6
-  LPC_GPIO_PORT->DIR[0] |= (1UL << 15);
-  LPC_GPIO_PORT->SET[0] |= (1UL << 15);
+  //    scu_pinmux(0x1, 20, SETTINGS_GPIO_OUT, FUNC0); //GPIO0[15], available on J7-6
+  //    LPC_GPIO_PORT->DIR[0] |= (1UL << 15);
+  //    LPC_GPIO_PORT->SET[0] |= (1UL << 15);
 
   // CS for E2PROM is controlled via P3.2 and not SSP1_SSEL.
   // Pin P3.2 should be configured as GPIO and set high.
-  scu_pinmux(0x3,  2, SETTINGS_GPIO_OUT, FUNC4); //GPIO5[9], available on J7-12
-  LPC_GPIO_PORT->DIR[5] |= (1UL << 9);
-  LPC_GPIO_PORT->SET[5] |= (1UL << 9);
+  //    scu_pinmux(0x3,  2, SETTINGS_GPIO_OUT, FUNC4); //GPIO5[9], available on J7-12
+  //    LPC_GPIO_PORT->DIR[5] |= (1UL << 9);
+  //    LPC_GPIO_PORT->SET[5] |= (1UL << 9);
 
   // CS for GPO is controlled via P6.11 and not SSP1_SSEL.
   // Pin P6.11 should be configured as GPIO and set high.
-  scu_pinmux(0x6, 11, SETTINGS_GPIO_OUT, FUNC0); //GPIO3[7], available on J7-14
-  LPC_GPIO_PORT->DIR[3] |= (1UL << 7);
-  LPC_GPIO_PORT->SET[3] |= (1UL << 7);
+  //    scu_pinmux(0x6, 11, SETTINGS_GPIO_OUT, FUNC0); //GPIO3[7], available on J7-14
+  //    LPC_GPIO_PORT->DIR[3] |= (1UL << 7);
+  //    LPC_GPIO_PORT->SET[3] |= (1UL << 7);
 
   //-------------------------------------------------------------------------
   // SPIFI
   //-------------------------------------------------------------------------
 
-//   scu_pinmux(0x3,  3, SETTINGS_SPIFI, FUNC3); //SPIFI_SCK
-//   scu_pinmux(0x3,  4, SETTINGS_SPIFI, FUNC3); //SPIFI_SIO3
-//   scu_pinmux(0x3,  5, SETTINGS_SPIFI, FUNC3); //SPIFI_SIO2
-//   scu_pinmux(0x3,  6, SETTINGS_SPIFI, FUNC3); //SPIFI_MISO
-//   scu_pinmux(0x3,  7, SETTINGS_SPIFI, FUNC3); //SPIFI_MOSI
-//   scu_pinmux(0x3,  8, SETTINGS_SPIFI, FUNC3); //SPIFI_CS
+   scu_pinmux(0x3,  3, SETTINGS_SPIFI, FUNC3); //SPIFI_SCK
+   scu_pinmux(0x3,  4, SETTINGS_SPIFI, FUNC3); //SPIFI_SIO3
+   scu_pinmux(0x3,  5, SETTINGS_SPIFI, FUNC3); //SPIFI_SIO2
+   scu_pinmux(0x3,  6, SETTINGS_SPIFI, FUNC3); //SPIFI_MISO
+   scu_pinmux(0x3,  7, SETTINGS_SPIFI, FUNC3); //SPIFI_MOSI
+   scu_pinmux(0x3,  8, SETTINGS_SPIFI, FUNC3); //SPIFI_CS
 
   //-------------------------------------------------------------------------
   // LED
@@ -280,7 +280,7 @@ static void pinConfig(void)
   // CALIBRATION SIGNAL
   //-------------------------------------------------------------------------
 
-  scu_pinmux(0x6,  9, SETTINGS_GPIO_OUT, FUNC5); //T2_MAT,  CAL_SIG available on J7-13
+ //  scu_pinmux(0x6,  9, SETTINGS_GPIO_OUT, FUNC5); //T2_MAT,  CAL_SIG available on J7-13
 
   //-------------------------------------------------------------------------
   // CLOCK OUTPUT
@@ -345,39 +345,39 @@ static void priorityConfig()
  * @brief   Sets up a 2KHz calibration signal.
  *
  *****************************************************************************/
-static void setupCalibrationSignal()
-{
-#if 1
-  TIM_TIMERCFG_Type timerCfg;
-  TIM_MATCHCFG_Type matchCfg;
+//static void setupCalibrationSignal()
+//{
+//#if 1
+//  TIM_TIMERCFG_Type timerCfg;
+//  TIM_MATCHCFG_Type matchCfg;
 
   // Initialize timer 2, prescale count time of 100uS
-  timerCfg.PrescaleOption = TIM_PRESCALE_USVAL;
-  timerCfg.PrescaleValue  = 100;
+//  timerCfg.PrescaleOption = TIM_PRESCALE_USVAL;
+//  timerCfg.PrescaleValue  = 100;
 
   // use channel 2, MR2
-  matchCfg.MatchChannel = 2;
+//  matchCfg.MatchChannel = 2;
   // Disable interrupt when MR2 matches the value in TC register
-  matchCfg.IntOnMatch   = FALSE;
+//  matchCfg.IntOnMatch   = FALSE;
   //Enable reset on MR2: TIMER will reset if MR2 matches it
-  matchCfg.ResetOnMatch = TRUE;
+//  matchCfg.ResetOnMatch = TRUE;
   //Stop on MR2 if MR2 matches it
-  matchCfg.StopOnMatch  = FALSE;
+//  matchCfg.StopOnMatch  = FALSE;
   //Toggle MR2.2 pin if MR2 matches it
-  matchCfg.ExtMatchOutputType = TIM_EXTMATCH_TOGGLE;
+//  matchCfg.ExtMatchOutputType = TIM_EXTMATCH_TOGGLE;
   // Set Match value, count value of 5 (5 * 100uS = 0.5mS --> 2KHz)
-  matchCfg.MatchValue   = 4;
+//  matchCfg.MatchValue   = 4;
 
-  TIM_Init(LPC_TIMER2, TIM_TIMER_MODE, &timerCfg);
-  TIM_ConfigMatch(LPC_TIMER2, &matchCfg);
-  TIM_Cmd(LPC_TIMER2, ENABLE);
-#else
-  scu_pinmux(0x6,  9, SETTINGS_GPIO_OUT, FUNC0); //GPIO3[5],  CAL_SIG available on J7-13
-  LPC_GPIO_PORT->DIR[3] |= (1UL << 5);
+//  TIM_Init(LPC_TIMER2, TIM_TIMER_MODE, &timerCfg);
+//  TIM_ConfigMatch(LPC_TIMER2, &matchCfg);
+//  TIM_Cmd(LPC_TIMER2, ENABLE);
+//#else
+//  scu_pinmux(0x6,  9, SETTINGS_GPIO_OUT, FUNC0); //GPIO3[5],  CAL_SIG available on J7-13
+//  LPC_GPIO_PORT->DIR[3] |= (1UL << 5);
   //LPC_GPIO_PORT->SET[3] |= (1UL << 5); //SET => 0V out
-  LPC_GPIO_PORT->CLR[3] |= (1UL << 5); //CLR => 1.253V out
-#endif
-}
+//  LPC_GPIO_PORT->CLR[3] |= (1UL << 5); //CLR => 1.253V out
+//#endif
+//}
 
 /******************************************************************************
  * Main method
@@ -397,15 +397,15 @@ int main (void)
   CGU_Improved_Init();
 
   RGU_SoftReset(RGU_SIG_ADC0);
-  RGU_SoftReset(RGU_SIG_DAC);
-  RGU_SoftReset(RGU_SIG_LCD);
+//  RGU_SoftReset(RGU_SIG_DAC);
+//  RGU_SoftReset(RGU_SIG_LCD);
   RGU_SoftReset(RGU_SIG_DMA);
   RGU_SoftReset(RGU_SIG_GPIO);
   RGU_SoftReset(RGU_SIG_TIMER0);
   RGU_SoftReset(RGU_SIG_I2C0);
   RGU_SoftReset(RGU_SIG_USB0);
   RGU_SoftReset(RGU_SIG_SGPIO);
-  RGU_SoftReset(RGU_SIG_VADC);
+//  RGU_SoftReset(RGU_SIG_VADC);
   //RGU_SoftReset(RGU_SIG_SPIFI);  //important to not do when booting from SPIFI
 
   /* Initialize timer */
@@ -418,7 +418,7 @@ int main (void)
   /* Request systicks every ms */
   //SysTick_Config(SystemCoreClock/1000);
 
-  setupCalibrationSignal();
+//  setupCalibrationSignal();
 
 #if (ENABLE_LOGGING == OPT_ENABLED)
   debug_frmwrk_init();
@@ -430,12 +430,12 @@ int main (void)
   I2C_Cmd(I2C_PORT, ENABLE);
 
   /* Initialize Control Signals via 74HC595PW */
-  spi_control_init();
+//  spi_control_init();
 
   experiments_Run();
 
   /* Make sure calibration data is loaded (or at least set to defaults) */
-  calibrate_Init();
+//  calibrate_Init();
 
   statemachine_Init();
 

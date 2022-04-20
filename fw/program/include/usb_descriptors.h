@@ -57,6 +57,17 @@ typedef struct
   USB_Descriptor_Interface_t      LabTool_Interface;
   USB_Descriptor_Endpoint_t       LabTool_DataInEndpoint;
   USB_Descriptor_Endpoint_t       LabTool_DataOutEndpoint;
+  USB_Descriptor_Endpoint_t       LabTool_DataINTInEndpoint;
+  USB_Descriptor_Interface_t      CDC_Interface;
+  USB_Descriptor_Interface_Association_t      CDC_Interface2;
+  USB_Descriptor_Interface_Association_t      CDC_iad;
+  USB_Descriptor_Interface_Association_t      CDC_union;
+  USB_Descriptor_Endpoint_t       CDC_DataInterEndpoint2;
+  USB_Descriptor_Endpoint_t       CDC_DataInEndpoint2;
+  USB_Descriptor_Endpoint_t       CDC_DataOutEndpoint2;
+  USB_Descriptor_Endpoint_t       CDC_DataInterEndpoint;
+  USB_Descriptor_Endpoint_t       CDC_DataInEndpoint;
+  USB_Descriptor_Endpoint_t       CDC_DataOutEndpoint;
   unsigned char                   LabTool_Termination;
 } USB_Descriptor_Configuration_t;
 

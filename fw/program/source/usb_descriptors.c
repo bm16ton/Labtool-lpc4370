@@ -45,6 +45,7 @@
  *  number of device configurations. The descriptor is read out by the USB host when the enumeration
  *  process begins.
  */
+
 const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
   .Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
@@ -79,7 +80,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
     .Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
     .TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t) - 1, /* B.VERNOUX Last byte LabTool_Termination shall be not sent remove 1, v0.97 used sizeof(...)-1 */
-    .TotalInterfaces        = 1,
+    .TotalInterfaces        = 2,
 
     .ConfigurationNumber    = 1,
     .ConfigurationStrIndex  = NO_DESCRIPTOR,
@@ -96,7 +97,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
     .InterfaceNumber        = LABTOOL_IF_NUMBER,
     .AlternateSetting       = 0,
 
-    .TotalEndpoints         = 2,
+    .TotalEndpoints         = 3,
 
     .Class                  = USB_CSCP_VendorSpecificClass,
     .SubClass               = USB_CSCP_VendorSpecificSubclass,
@@ -120,6 +121,99 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
     .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
     .EndpointAddress        = (ENDPOINT_DIR_OUT | LABTOOL_OUT_EPNUM),
+    .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = LABTOOL_IO_EPSIZE,
+    .PollingIntervalMS      = 0x01
+  },
+//  .LabTool_Termination = 0x00
+//};
+
+  .LabTool_DataINTInEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+    .EndpointAddress        = (ENDPOINT_DIR_IN | 0x84),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = LABTOOL_IO_EPSIZE,
+    .PollingIntervalMS      = 0x01
+  },
+
+  .CDC_Interface =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+//	.DescriptorType			=
+    .InterfaceNumber        = 1,
+    .AlternateSetting       = 0,
+
+    .TotalEndpoints         = 3,
+
+    .Class                  = 0x02,
+    .SubClass               = 0,
+    .Protocol               = 0,
+
+    .InterfaceStrIndex      = NO_DESCRIPTOR
+  },
+
+  .CDC_Interface2 =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_InterfaceAssociation},
+    .Class                  = 0x10,
+    .SubClass               = 0,
+    .Protocol               = 0,
+//    .endpoint = CDC_DataInterEndpoint,
+  },
+
+	.CDC_iad =
+  {
+	.Header = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_CSInterface},
+	0xFF,
+	0x02,
+	0xFF,
+  },
+
+    .CDC_union =
+    {
+    	.Header = {
+		.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_CSEndpoint,
+		0x06,
+		0x01,
+//		.bDescriptorSubtype = USB_CDC_TYPE_HEADER,
+//		.bcdCDC = 0x0110,
+	},
+//	.Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_CSEndpoint},
+	2,
+	0x00,
+	0x01,
+	2,
+	2,
+	0xFF,
+    },
+
+  .CDC_DataInterEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+    .EndpointAddress        = (ENDPOINT_DIR_IN | 0x07),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = LABTOOL_IO_EPSIZE,
+    .PollingIntervalMS      = 0x01
+  },
+
+  .CDC_DataInEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+    .EndpointAddress        = (ENDPOINT_DIR_IN | 0x86),
+    .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = LABTOOL_IO_EPSIZE,
+    .PollingIntervalMS      = 0x01
+  },
+
+  .CDC_DataOutEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+
+    .EndpointAddress        = (ENDPOINT_DIR_OUT | 0x06),
     .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
     .EndpointSize           = LABTOOL_IO_EPSIZE,
     .PollingIntervalMS      = 0x01
@@ -210,6 +304,10 @@ uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
       Address = &ConfigurationDescriptor;
       Size    = sizeof(USB_Descriptor_Configuration_t) - 1; /* B.VERNOUX Last byte LabTool_Termination shall be not sent */
       break;
+//    case DTYPE_CSInterface:
+//      Address = &CSInterfaceDescriptor;
+//      Size    = sizeof(USB_Descriptor_CSInterface_t) - 1; /* B.VERNOUX Last byte LabTool_Termination shall be not sent */
+//      break;
     case DTYPE_String:
       switch (DescriptorNumber)
       {

@@ -70,7 +70,7 @@ void SystemInit (void)
         fpuEnable();
 #endif
 #endif
-        
+
 #if !defined(CORE_M0)
 // Set up Cortex_M3 or M4 VTOR register to point to vector table
 // This code uses a toolchain defined symbol to locate the vector table
@@ -90,11 +90,11 @@ void SystemInit (void)
 	extern void *__Vectors;
 
 	org = *pSCB_VTOR = (unsigned int)&__Vectors;
-	
-#elif defined(__GNUC__)
-	extern void *__isr_vector;
 
-	org = *pSCB_VTOR = (unsigned int)&__isr_vector;
+#elif defined(__GNUC__)
+//	extern void *__isr_vector;
+
+//	org = *pSCB_VTOR = (unsigned int)&__isr_vector;
 
 #else
 #error Unknown compiler
