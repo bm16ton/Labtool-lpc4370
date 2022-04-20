@@ -34,15 +34,15 @@ OBJECTS = $(patsubst %c,%o,$(wildcard ./Lib_Drivers/source/*.c)) \
           $(patsubst %c,%o,$(wildcard ./program/sct/*.c)) \
           $(PRG_OBJS) \
           $(USB_OBJS) \
-          ./program/source/startup_ARMCM4.o
+          ./cr_startup_lpc43xx.o
 
 SYS_OBJECTS =
 INCLUDE_PATHS = -I./Lib_CMSIS/include -I./Lib_Drivers/include -I./Lib_MCU/include \
                 -I./Lib_USB/ -I./Lib_USB/LPCUSBLib/Drivers/USB -I./program/include \
-                -I./program/sct
+                -I./program/sct -I./
 LIBRARY_PATHS =
 LIBRARIES =
-LINKER_SCRIPT = ./gcc_arm.ld
+LINKER_SCRIPT = ./LPC4330_Xplorer.ld
 
 ###############################################################################
 AS      = $(GCC_BIN)arm-none-eabi-as

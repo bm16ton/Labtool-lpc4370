@@ -14,7 +14,7 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DDEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I. -I. -Ilibusbx/MS32/dll -isystem /usr/include/aarch64-linux-gnu/qt5 -isystem /usr/include/aarch64-linux-gnu/qt5/QtWidgets -isystem /usr/include/aarch64-linux-gnu/qt5/QtGui -isystem /usr/include/aarch64-linux-gnu/qt5/QtCore -I. -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++
@@ -37,12 +37,12 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = LabTool1.0.0
-DISTDIR = /Part/Labtool-lpc4370/app/.tmp/LabTool1.0.0
+DISTDIR = /home/maddocks/labtool/app/.tmp/LabTool1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -L/Part/Labtool-lpc4370/app/libusbx/Linux/ -lusb-1.0 -ludev /usr/lib/aarch64-linux-gnu/libQt5Widgets.so /usr/lib/aarch64-linux-gnu/libQt5Gui.so /usr/lib/aarch64-linux-gnu/libQt5Core.so /usr/lib/aarch64-linux-gnu/libGL.so -lpthread   
+LIBS          = $(SUBLIBS) -L/home/maddocks/labtool/app/libusbx/Linux/ -lusb-1.0 -ludev /usr/lib/aarch64-linux-gnu/libQt5Widgets.so /usr/lib/aarch64-linux-gnu/libQt5Gui.so /usr/lib/aarch64-linux-gnu/libQt5Core.so /usr/lib/aarch64-linux-gnu/libGL.so -lpthread
 AR            = ar cqs
-RANLIB        = 
+RANLIB        =
 SED           = sed
 STRIP         = strip
 
@@ -334,8 +334,18 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/g++-base.conf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/g++-unix.conf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/qconfig.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_BluezQt.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayClient.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayCommon.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayCore.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayKItemModels.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayLauncher.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayLauncherUi.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayUi.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_KDBusAddons.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri \
@@ -343,6 +353,8 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designercomponents_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_edid_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri \
@@ -355,34 +367,68 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_help.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_help_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_location.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_packetprotocol_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioning.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioningquick.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmldebug_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmldevtools_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickparticles_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickshapes_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quicktemplates2.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_script.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_scripttools.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialbus.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uiplugin.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_usb.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_usb_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_vulkan_support_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webchannel.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_websockets.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/qt_functions.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
@@ -553,14 +599,14 @@ DIST          = /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		device/digitalsignal.cpp \
 		device/reconfigurelistener.cpp
 QMAKE_TARGET  = LabTool
-DESTDIR       = 
+DESTDIR       =
 TARGET        = LabTool
 
 
 first: all
 ####### Build rules
 
-LabTool:  $(OBJECTS)  
+LabTool:  $(OBJECTS)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: LabTool.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -572,8 +618,18 @@ Makefile: LabTool.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/g++-base.conf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/g++-unix.conf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/qconfig.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_BluezQt.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayClient.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayCommon.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayCore.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayKItemModels.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayLauncher.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayLauncherUi.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayUi.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_KDBusAddons.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri \
@@ -581,6 +637,8 @@ Makefile: LabTool.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designercomponents_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_edid_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri \
@@ -593,34 +651,68 @@ Makefile: LabTool.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_help.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_help_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_location.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_packetprotocol_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioning.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioningquick.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmldebug_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmldevtools_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickparticles_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickshapes_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quicktemplates2.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_script.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_scripttools.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialbus.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uiplugin.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_usb.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_usb_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_vulkan_support_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webchannel.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_websockets.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri \
+		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns.pri \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/qt_functions.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
@@ -655,8 +747,18 @@ Makefile: LabTool.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/g++-base.conf:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/common/g++-unix.conf:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/qconfig.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_BluezQt.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayClient.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayCommon.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayCore.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayKItemModels.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayLauncher.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayLauncherUi.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_GammaRayUi.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_KDBusAddons.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_charts.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_concurrent_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_core.pri:
@@ -664,6 +766,8 @@ Makefile: LabTool.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_dbus_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designer_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_designercomponents_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_edid_support_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_egl_support_private.pri:
@@ -676,34 +780,68 @@ Makefile: LabTool.pro /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_gui_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_help.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_help_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_input_support_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_kms_support_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_location.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimedia.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_multimediawidgets.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_network.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_network_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_opengl_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_packetprotocol_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioning.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_positioningquick.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmldebug_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmldevtools_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickcontrols2.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickparticles_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickshapes_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quicktemplates2.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_quickwidgets_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_script.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_scripttools.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sensors.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialbus.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_serialport.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_service_support_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_svg.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_theme_support_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uiplugin.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_uitools_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_usb.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_usb_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_vulkan_support_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webchannel.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkit.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_websockets.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_widgets_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_x11extras.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xml_private.pri:
+/usr/lib/aarch64-linux-gnu/qt5/mkspecs/modules/qt_lib_xmlpatterns.pri:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/qt_functions.prf:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
@@ -748,13 +886,13 @@ distdir: FORCE
 	$(COPY_FILE) --parents main.cpp generator/i2cgenerator.cpp device/devicemanager.cpp device/capturedevice.cpp analyzer/uianalyzer.cpp analyzer/analyzermanager.cpp device/labtool/labtooldevicetransfer.cpp device/labtool/labtooldevicecommthread.cpp device/labtool/labtooldevicecomm.cpp device/simulator/uisimulatorconfigdialog.cpp device/labtool/uilabtooltriggerconfig.cpp analyzer/uart/uiuartanalyzer.cpp generator/uartgenerator.cpp analyzer/uianalyzerconfig.cpp analyzer/uart/uiuartanalyzerconfig.cpp common/inputhelper.cpp common/types.cpp generator/spigenerator.cpp analyzer/i2c/uii2canalyzerconfig.cpp analyzer/i2c/uii2canalyzer.cpp analyzer/spi/uispianalyzer.cpp analyzer/spi/uispianalyzerconfig.cpp device/device.cpp device/generatordevice.cpp device/simulator/simulatorcapturedevice.cpp device/simulator/simulatordevice.cpp device/labtool/labtoolcapturedevice.cpp device/labtool/labtooldevice.cpp generator/uidigitalgenerator.cpp generator/uianaloggenerator.cpp device/simulator/simulatorgeneratordevice.cpp device/labtool/labtoolgeneratordevice.cpp generator/uigeneratorarea.cpp generator/generatorapp.cpp generator/digitaldelegate.cpp generator/digitalsignals.cpp generator/uieditdigital.cpp generator/uieditanalog.cpp generator/uianalogshape.cpp generator/uigeneratorsignaldialog.cpp common/stringutil.cpp uimainwindow.cpp capture/uitimeaxis.cpp capture/uisimpleabstractsignal.cpp capture/uiselectsignaldialog.cpp capture/uiplot.cpp capture/uimeasurmentarea.cpp capture/uilistspinbox.cpp capture/uigrid.cpp capture/uidigitaltrigger.cpp capture/uidigitalsignal.cpp capture/uidigitalgroup.cpp capture/uicursorgroup.cpp capture/uicursor.cpp capture/uicapturearea.cpp capture/uianalogtrigger.cpp capture/uianalogsignal.cpp capture/uianaloggroup.cpp capture/uiabstractsignal.cpp capture/uiabstractplotitem.cpp capture/signalmanager.cpp capture/cursormanager.cpp capture/captureapp.cpp common/configuration.cpp device/analogsignal.cpp capture/uicaptureexporter.cpp device/labtool/labtoolcalibrationwizard.cpp device/labtool/labtoolcalibrationwizardintropage.cpp device/labtool/labtoolcalibrationwizardconclusionpage.cpp device/labtool/labtoolcalibrationwizardanalogout.cpp device/labtool/labtoolcalibrationwizardanalogin.cpp device/labtool/labtoolcalibrationdata.cpp device/digitalsignal.cpp device/reconfigurelistener.cpp $(DISTDIR)/
 
 
-clean: compiler_clean 
+clean: compiler_clean
 	-$(DEL_FILE) $(OBJECTS)
 	-$(DEL_FILE) *~ core *.core
 
 
-distclean: clean 
-	-$(DEL_FILE) $(TARGET) 
+distclean: clean
+	-$(DEL_FILE) $(TARGET)
 	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
@@ -803,7 +941,7 @@ moc_i2cgenerator.cpp: generator/i2cgenerator.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/i2cgenerator.h -o moc_i2cgenerator.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/i2cgenerator.h -o moc_i2cgenerator.cpp
 
 moc_devicemanager.cpp: device/devicemanager.h \
 		device/device.h \
@@ -814,7 +952,7 @@ moc_devicemanager.cpp: device/devicemanager.h \
 		device/generatordevice.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/devicemanager.h -o moc_devicemanager.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/devicemanager.h -o moc_devicemanager.cpp
 
 moc_capturedevice.cpp: device/capturedevice.h \
 		device/digitalsignal.h \
@@ -822,7 +960,7 @@ moc_capturedevice.cpp: device/capturedevice.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/capturedevice.h -o moc_capturedevice.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/capturedevice.h -o moc_capturedevice.cpp
 
 moc_uianalyzer.cpp: analyzer/uianalyzer.h \
 		common/types.h \
@@ -832,7 +970,7 @@ moc_uianalyzer.cpp: analyzer/uianalyzer.h \
 		capture/uitimeaxis.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/uianalyzer.h -o moc_uianalyzer.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/uianalyzer.h -o moc_uianalyzer.cpp
 
 moc_labtooldevicecommthread.cpp: device/labtool/labtooldevicecommthread.h \
 		device/labtool/labtooldevicecomm.h \
@@ -842,7 +980,7 @@ moc_labtooldevicecommthread.cpp: device/labtool/labtooldevicecommthread.h \
 		device/labtool/labtoolcalibrationdata.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtooldevicecommthread.h -o moc_labtooldevicecommthread.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtooldevicecommthread.h -o moc_labtooldevicecommthread.cpp
 
 moc_labtooldevicecomm.cpp: device/labtool/labtooldevicecomm.h \
 		device/labtool/labtooldevicecommthread.h \
@@ -852,18 +990,18 @@ moc_labtooldevicecomm.cpp: device/labtool/labtooldevicecomm.h \
 		device/labtool/labtoolcalibrationdata.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtooldevicecomm.h -o moc_labtooldevicecomm.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtooldevicecomm.h -o moc_labtooldevicecomm.cpp
 
 moc_uisimulatorconfigdialog.cpp: device/simulator/uisimulatorconfigdialog.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/simulator/uisimulatorconfigdialog.h -o moc_uisimulatorconfigdialog.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/simulator/uisimulatorconfigdialog.h -o moc_uisimulatorconfigdialog.cpp
 
 moc_uilabtooltriggerconfig.cpp: device/labtool/uilabtooltriggerconfig.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/uilabtooltriggerconfig.h -o moc_uilabtooltriggerconfig.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/uilabtooltriggerconfig.h -o moc_uilabtooltriggerconfig.cpp
 
 moc_uiuartanalyzer.cpp: analyzer/uart/uiuartanalyzer.h \
 		analyzer/uianalyzer.h \
@@ -882,13 +1020,13 @@ moc_uiuartanalyzer.cpp: analyzer/uart/uiuartanalyzer.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/uart/uiuartanalyzer.h -o moc_uiuartanalyzer.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/uart/uiuartanalyzer.h -o moc_uiuartanalyzer.cpp
 
 moc_uartgenerator.cpp: generator/uartgenerator.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uartgenerator.h -o moc_uartgenerator.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uartgenerator.h -o moc_uartgenerator.cpp
 
 moc_uianalyzerconfig.cpp: analyzer/uianalyzerconfig.h \
 		common/types.h \
@@ -899,7 +1037,7 @@ moc_uianalyzerconfig.cpp: analyzer/uianalyzerconfig.h \
 		capture/uitimeaxis.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/uianalyzerconfig.h -o moc_uianalyzerconfig.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/uianalyzerconfig.h -o moc_uianalyzerconfig.cpp
 
 moc_uiuartanalyzerconfig.cpp: analyzer/uart/uiuartanalyzerconfig.h \
 		analyzer/uart/uiuartanalyzer.h \
@@ -920,13 +1058,13 @@ moc_uiuartanalyzerconfig.cpp: analyzer/uart/uiuartanalyzerconfig.h \
 		analyzer/uianalyzerconfig.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/uart/uiuartanalyzerconfig.h -o moc_uiuartanalyzerconfig.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/uart/uiuartanalyzerconfig.h -o moc_uiuartanalyzerconfig.cpp
 
 moc_spigenerator.cpp: generator/spigenerator.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/spigenerator.h -o moc_spigenerator.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/spigenerator.h -o moc_spigenerator.cpp
 
 moc_uii2canalyzerconfig.cpp: analyzer/i2c/uii2canalyzerconfig.h \
 		analyzer/i2c/uii2canalyzer.h \
@@ -947,7 +1085,7 @@ moc_uii2canalyzerconfig.cpp: analyzer/i2c/uii2canalyzerconfig.h \
 		analyzer/uianalyzerconfig.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/i2c/uii2canalyzerconfig.h -o moc_uii2canalyzerconfig.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/i2c/uii2canalyzerconfig.h -o moc_uii2canalyzerconfig.cpp
 
 moc_uii2canalyzer.cpp: analyzer/i2c/uii2canalyzer.h \
 		analyzer/uianalyzer.h \
@@ -966,7 +1104,7 @@ moc_uii2canalyzer.cpp: analyzer/i2c/uii2canalyzer.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/i2c/uii2canalyzer.h -o moc_uii2canalyzer.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/i2c/uii2canalyzer.h -o moc_uii2canalyzer.cpp
 
 moc_uispianalyzer.cpp: analyzer/spi/uispianalyzer.h \
 		analyzer/uianalyzer.h \
@@ -985,7 +1123,7 @@ moc_uispianalyzer.cpp: analyzer/spi/uispianalyzer.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/spi/uispianalyzer.h -o moc_uispianalyzer.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/spi/uispianalyzer.h -o moc_uispianalyzer.cpp
 
 moc_uispianalyzerconfig.cpp: analyzer/spi/uispianalyzerconfig.h \
 		analyzer/uianalyzerconfig.h \
@@ -1005,7 +1143,7 @@ moc_uispianalyzerconfig.cpp: analyzer/spi/uispianalyzerconfig.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/spi/uispianalyzerconfig.h -o moc_uispianalyzerconfig.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include analyzer/spi/uispianalyzerconfig.h -o moc_uispianalyzerconfig.cpp
 
 moc_device.cpp: device/device.h \
 		device/capturedevice.h \
@@ -1015,7 +1153,7 @@ moc_device.cpp: device/device.h \
 		device/generatordevice.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/device.h -o moc_device.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/device.h -o moc_device.cpp
 
 moc_generatordevice.cpp: device/generatordevice.h \
 		device/digitalsignal.h \
@@ -1023,7 +1161,7 @@ moc_generatordevice.cpp: device/generatordevice.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/generatordevice.h -o moc_generatordevice.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/generatordevice.h -o moc_generatordevice.cpp
 
 moc_simulatorcapturedevice.cpp: device/simulator/simulatorcapturedevice.h \
 		device/capturedevice.h \
@@ -1034,7 +1172,7 @@ moc_simulatorcapturedevice.cpp: device/simulator/simulatorcapturedevice.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/simulator/simulatorcapturedevice.h -o moc_simulatorcapturedevice.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/simulator/simulatorcapturedevice.h -o moc_simulatorcapturedevice.cpp
 
 moc_simulatordevice.cpp: device/simulator/simulatordevice.h \
 		device/device.h \
@@ -1049,7 +1187,7 @@ moc_simulatordevice.cpp: device/simulator/simulatordevice.h \
 		device/simulator/simulatorgeneratordevice.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/simulator/simulatordevice.h -o moc_simulatordevice.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/simulator/simulatordevice.h -o moc_simulatordevice.cpp
 
 moc_labtoolcapturedevice.cpp: device/labtool/labtoolcapturedevice.h \
 		device/capturedevice.h \
@@ -1064,7 +1202,7 @@ moc_labtoolcapturedevice.cpp: device/labtool/labtoolcapturedevice.h \
 		device/labtool/uilabtooltriggerconfig.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcapturedevice.h -o moc_labtoolcapturedevice.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcapturedevice.h -o moc_labtoolcapturedevice.cpp
 
 moc_labtooldevice.cpp: device/labtool/labtooldevice.h \
 		device/device.h \
@@ -1083,7 +1221,7 @@ moc_labtooldevice.cpp: device/labtool/labtooldevice.h \
 		device/labtool/labtoolgeneratordevice.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtooldevice.h -o moc_labtooldevice.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtooldevice.h -o moc_labtooldevice.cpp
 
 moc_uidigitalgenerator.cpp: generator/uidigitalgenerator.h \
 		generator/digitalsignals.h \
@@ -1091,7 +1229,7 @@ moc_uidigitalgenerator.cpp: generator/uidigitalgenerator.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uidigitalgenerator.h -o moc_uidigitalgenerator.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uidigitalgenerator.h -o moc_uidigitalgenerator.cpp
 
 moc_uianaloggenerator.cpp: generator/uianaloggenerator.h \
 		device/generatordevice.h \
@@ -1100,7 +1238,7 @@ moc_uianaloggenerator.cpp: generator/uianaloggenerator.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uianaloggenerator.h -o moc_uianaloggenerator.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uianaloggenerator.h -o moc_uianaloggenerator.cpp
 
 moc_simulatorgeneratordevice.cpp: device/simulator/simulatorgeneratordevice.h \
 		device/generatordevice.h \
@@ -1109,7 +1247,7 @@ moc_simulatorgeneratordevice.cpp: device/simulator/simulatorgeneratordevice.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/simulator/simulatorgeneratordevice.h -o moc_simulatorgeneratordevice.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/simulator/simulatorgeneratordevice.h -o moc_simulatorgeneratordevice.cpp
 
 moc_labtoolgeneratordevice.cpp: device/labtool/labtoolgeneratordevice.h \
 		device/generatordevice.h \
@@ -1123,7 +1261,7 @@ moc_labtoolgeneratordevice.cpp: device/labtool/labtoolgeneratordevice.h \
 		device/labtool/labtoolcalibrationdata.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolgeneratordevice.h -o moc_labtoolgeneratordevice.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolgeneratordevice.h -o moc_labtoolgeneratordevice.cpp
 
 moc_uigeneratorarea.cpp: generator/uigeneratorarea.h \
 		generator/digitalsignals.h \
@@ -1135,7 +1273,7 @@ moc_uigeneratorarea.cpp: generator/uigeneratorarea.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uigeneratorarea.h -o moc_uigeneratorarea.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uigeneratorarea.h -o moc_uigeneratorarea.cpp
 
 moc_generatorapp.cpp: generator/generatorapp.h \
 		generator/uigeneratorarea.h \
@@ -1150,26 +1288,26 @@ moc_generatorapp.cpp: generator/generatorapp.h \
 		device/capturedevice.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/generatorapp.h -o moc_generatorapp.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/generatorapp.h -o moc_generatorapp.cpp
 
 moc_digitaldelegate.cpp: generator/digitaldelegate.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/digitaldelegate.h -o moc_digitaldelegate.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/digitaldelegate.h -o moc_digitaldelegate.cpp
 
 moc_digitalsignals.cpp: generator/digitalsignals.h \
 		device/digitalsignal.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/digitalsignals.h -o moc_digitalsignals.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/digitalsignals.h -o moc_digitalsignals.cpp
 
 moc_uieditdigital.cpp: generator/uieditdigital.h \
 		device/digitalsignal.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uieditdigital.h -o moc_uieditdigital.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uieditdigital.h -o moc_uieditdigital.cpp
 
 moc_uieditanalog.cpp: generator/uieditanalog.h \
 		device/analogsignal.h \
@@ -1177,19 +1315,19 @@ moc_uieditanalog.cpp: generator/uieditanalog.h \
 		generator/uianalogshape.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uieditanalog.h -o moc_uieditanalog.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uieditanalog.h -o moc_uieditanalog.cpp
 
 moc_uianalogshape.cpp: generator/uianalogshape.h \
 		device/analogsignal.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uianalogshape.h -o moc_uianalogshape.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uianalogshape.h -o moc_uianalogshape.cpp
 
 moc_uigeneratorsignaldialog.cpp: generator/uigeneratorsignaldialog.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uigeneratorsignaldialog.h -o moc_uigeneratorsignaldialog.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include generator/uigeneratorsignaldialog.h -o moc_uigeneratorsignaldialog.cpp
 
 moc_uimainwindow.cpp: uimainwindow.h \
 		device/device.h \
@@ -1221,13 +1359,13 @@ moc_uimainwindow.cpp: uimainwindow.h \
 		capture/uianaloggroup.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include uimainwindow.h -o moc_uimainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include uimainwindow.h -o moc_uimainwindow.cpp
 
 moc_uitimeaxis.cpp: capture/uitimeaxis.h \
 		capture/uiabstractplotitem.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uitimeaxis.h -o moc_uitimeaxis.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uitimeaxis.h -o moc_uitimeaxis.cpp
 
 moc_uisimpleabstractsignal.cpp: capture/uisimpleabstractsignal.h \
 		capture/uiabstractsignal.h \
@@ -1235,7 +1373,7 @@ moc_uisimpleabstractsignal.cpp: capture/uisimpleabstractsignal.h \
 		capture/uitimeaxis.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uisimpleabstractsignal.h -o moc_uisimpleabstractsignal.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uisimpleabstractsignal.h -o moc_uisimpleabstractsignal.cpp
 
 moc_uiselectsignaldialog.cpp: capture/uiselectsignaldialog.h \
 		capture/uiabstractsignal.h \
@@ -1243,7 +1381,7 @@ moc_uiselectsignaldialog.cpp: capture/uiselectsignaldialog.h \
 		capture/uitimeaxis.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uiselectsignaldialog.h -o moc_uiselectsignaldialog.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uiselectsignaldialog.h -o moc_uiselectsignaldialog.cpp
 
 moc_uiplot.cpp: capture/uiplot.h \
 		capture/uigrid.h \
@@ -1263,31 +1401,31 @@ moc_uiplot.cpp: capture/uiplot.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uiplot.h -o moc_uiplot.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uiplot.h -o moc_uiplot.cpp
 
 moc_uimeasurmentarea.cpp: capture/uimeasurmentarea.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uimeasurmentarea.h -o moc_uimeasurmentarea.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uimeasurmentarea.h -o moc_uimeasurmentarea.cpp
 
 moc_uilistspinbox.cpp: capture/uilistspinbox.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uilistspinbox.h -o moc_uilistspinbox.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uilistspinbox.h -o moc_uilistspinbox.cpp
 
 moc_uigrid.cpp: capture/uigrid.h \
 		capture/uiabstractplotitem.h \
 		capture/uitimeaxis.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uigrid.h -o moc_uigrid.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uigrid.h -o moc_uigrid.cpp
 
 moc_uidigitaltrigger.cpp: capture/uidigitaltrigger.h \
 		device/digitalsignal.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uidigitaltrigger.h -o moc_uidigitaltrigger.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uidigitaltrigger.h -o moc_uidigitaltrigger.cpp
 
 moc_uidigitalsignal.cpp: capture/uidigitalsignal.h \
 		capture/uisimpleabstractsignal.h \
@@ -1299,12 +1437,12 @@ moc_uidigitalsignal.cpp: capture/uidigitalsignal.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uidigitalsignal.h -o moc_uidigitalsignal.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uidigitalsignal.h -o moc_uidigitalsignal.cpp
 
 moc_uidigitalgroup.cpp: capture/uidigitalgroup.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uidigitalgroup.h -o moc_uidigitalgroup.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uidigitalgroup.h -o moc_uidigitalgroup.cpp
 
 moc_uicursorgroup.cpp: capture/uicursorgroup.h \
 		capture/uicursor.h \
@@ -1323,7 +1461,7 @@ moc_uicursorgroup.cpp: capture/uicursorgroup.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uicursorgroup.h -o moc_uicursorgroup.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uicursorgroup.h -o moc_uicursorgroup.cpp
 
 moc_uicursor.cpp: capture/uicursor.h \
 		capture/uiabstractplotitem.h \
@@ -1341,7 +1479,7 @@ moc_uicursor.cpp: capture/uicursor.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uicursor.h -o moc_uicursor.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uicursor.h -o moc_uicursor.cpp
 
 moc_uicapturearea.cpp: capture/uicapturearea.h \
 		capture/uiplot.h \
@@ -1363,14 +1501,14 @@ moc_uicapturearea.cpp: capture/uicapturearea.h \
 		capture/uianaloggroup.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uicapturearea.h -o moc_uicapturearea.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uicapturearea.h -o moc_uicapturearea.cpp
 
 moc_uianalogtrigger.cpp: capture/uianalogtrigger.h \
 		device/analogsignal.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uianalogtrigger.h -o moc_uianalogtrigger.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uianalogtrigger.h -o moc_uianalogtrigger.cpp
 
 moc_uianalogsignal.cpp: capture/uianalogsignal.h \
 		capture/uiabstractsignal.h \
@@ -1380,7 +1518,7 @@ moc_uianalogsignal.cpp: capture/uianalogsignal.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uianalogsignal.h -o moc_uianalogsignal.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uianalogsignal.h -o moc_uianalogsignal.cpp
 
 moc_uianaloggroup.cpp: capture/uianaloggroup.h \
 		capture/uianalogsignal.h \
@@ -1391,19 +1529,19 @@ moc_uianaloggroup.cpp: capture/uianaloggroup.h \
 		device/reconfigurelistener.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uianaloggroup.h -o moc_uianaloggroup.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uianaloggroup.h -o moc_uianaloggroup.cpp
 
 moc_uiabstractsignal.cpp: capture/uiabstractsignal.h \
 		capture/uiabstractplotitem.h \
 		capture/uitimeaxis.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uiabstractsignal.h -o moc_uiabstractsignal.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uiabstractsignal.h -o moc_uiabstractsignal.cpp
 
 moc_uiabstractplotitem.cpp: capture/uiabstractplotitem.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uiabstractplotitem.h -o moc_uiabstractplotitem.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uiabstractplotitem.h -o moc_uiabstractplotitem.cpp
 
 moc_signalmanager.cpp: capture/signalmanager.h \
 		capture/uiabstractsignal.h \
@@ -1420,7 +1558,7 @@ moc_signalmanager.cpp: capture/signalmanager.h \
 		common/types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/signalmanager.h -o moc_signalmanager.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/signalmanager.h -o moc_signalmanager.cpp
 
 moc_captureapp.cpp: capture/captureapp.h \
 		capture/uicapturearea.h \
@@ -1446,7 +1584,7 @@ moc_captureapp.cpp: capture/captureapp.h \
 		device/generatordevice.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/captureapp.h -o moc_captureapp.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/captureapp.h -o moc_captureapp.cpp
 
 moc_uicaptureexporter.cpp: capture/uicaptureexporter.h \
 		device/capturedevice.h \
@@ -1455,7 +1593,7 @@ moc_uicaptureexporter.cpp: capture/uicaptureexporter.h \
 		device/analogsignal.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uicaptureexporter.h -o moc_uicaptureexporter.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include capture/uicaptureexporter.h -o moc_uicaptureexporter.cpp
 
 moc_labtoolcalibrationwizard.cpp: device/labtool/labtoolcalibrationwizard.h \
 		device/labtool/labtooldevicecomm.h \
@@ -1465,17 +1603,17 @@ moc_labtoolcalibrationwizard.cpp: device/labtool/labtoolcalibrationwizard.h \
 		device/labtool/labtoolcalibrationdata.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizard.h -o moc_labtoolcalibrationwizard.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizard.h -o moc_labtoolcalibrationwizard.cpp
 
 moc_labtoolcalibrationwizardintropage.cpp: device/labtool/labtoolcalibrationwizardintropage.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizardintropage.h -o moc_labtoolcalibrationwizardintropage.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizardintropage.h -o moc_labtoolcalibrationwizardintropage.cpp
 
 moc_labtoolcalibrationwizardconclusionpage.cpp: device/labtool/labtoolcalibrationwizardconclusionpage.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizardconclusionpage.h -o moc_labtoolcalibrationwizardconclusionpage.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizardconclusionpage.h -o moc_labtoolcalibrationwizardconclusionpage.cpp
 
 moc_labtoolcalibrationwizardanalogout.cpp: device/labtool/labtoolcalibrationwizardanalogout.h \
 		device/labtool/labtooldevicecomm.h \
@@ -1485,7 +1623,7 @@ moc_labtoolcalibrationwizardanalogout.cpp: device/labtool/labtoolcalibrationwiza
 		device/labtool/labtoolcalibrationdata.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizardanalogout.h -o moc_labtoolcalibrationwizardanalogout.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizardanalogout.h -o moc_labtoolcalibrationwizardanalogout.cpp
 
 moc_labtoolcalibrationwizardanalogin.cpp: device/labtool/labtoolcalibrationwizardanalogin.h \
 		device/labtool/labtooldevicecomm.h \
@@ -1495,7 +1633,7 @@ moc_labtoolcalibrationwizardanalogin.cpp: device/labtool/labtoolcalibrationwizar
 		device/labtool/labtoolcalibrationdata.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /Part/Labtool-lpc4370/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app -I/Part/Labtool-lpc4370/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/9 -I/usr/include/aarch64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/aarch64-linux-gnu/9/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizardanalogin.h -o moc_labtoolcalibrationwizardanalogin.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/maddocks/labtool/app/moc_predefs.h -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app -I/home/maddocks/labtool/app/libusbx/MS32/dll -I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I/usr/include/c++/10 -I/usr/include/aarch64-linux-gnu/c++/10 -I/usr/include/c++/10/backward -I/usr/lib/gcc/aarch64-linux-gnu/10/include -I/usr/local/include -I/usr/include/aarch64-linux-gnu -I/usr/include device/labtool/labtoolcalibrationwizardanalogin.h -o moc_labtoolcalibrationwizardanalogin.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1509,7 +1647,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
@@ -2372,193 +2510,193 @@ digitalsignal.o: device/digitalsignal.cpp device/digitalsignal.h \
 reconfigurelistener.o: device/reconfigurelistener.cpp device/reconfigurelistener.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o reconfigurelistener.o device/reconfigurelistener.cpp
 
-qrc_icons.o: qrc_icons.cpp 
+qrc_icons.o: qrc_icons.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_icons.o qrc_icons.cpp
 
-moc_i2cgenerator.o: moc_i2cgenerator.cpp 
+moc_i2cgenerator.o: moc_i2cgenerator.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_i2cgenerator.o moc_i2cgenerator.cpp
 
-moc_devicemanager.o: moc_devicemanager.cpp 
+moc_devicemanager.o: moc_devicemanager.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_devicemanager.o moc_devicemanager.cpp
 
-moc_capturedevice.o: moc_capturedevice.cpp 
+moc_capturedevice.o: moc_capturedevice.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_capturedevice.o moc_capturedevice.cpp
 
-moc_uianalyzer.o: moc_uianalyzer.cpp 
+moc_uianalyzer.o: moc_uianalyzer.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uianalyzer.o moc_uianalyzer.cpp
 
-moc_labtooldevicecommthread.o: moc_labtooldevicecommthread.cpp 
+moc_labtooldevicecommthread.o: moc_labtooldevicecommthread.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtooldevicecommthread.o moc_labtooldevicecommthread.cpp
 
-moc_labtooldevicecomm.o: moc_labtooldevicecomm.cpp 
+moc_labtooldevicecomm.o: moc_labtooldevicecomm.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtooldevicecomm.o moc_labtooldevicecomm.cpp
 
-moc_uisimulatorconfigdialog.o: moc_uisimulatorconfigdialog.cpp 
+moc_uisimulatorconfigdialog.o: moc_uisimulatorconfigdialog.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uisimulatorconfigdialog.o moc_uisimulatorconfigdialog.cpp
 
-moc_uilabtooltriggerconfig.o: moc_uilabtooltriggerconfig.cpp 
+moc_uilabtooltriggerconfig.o: moc_uilabtooltriggerconfig.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uilabtooltriggerconfig.o moc_uilabtooltriggerconfig.cpp
 
-moc_uiuartanalyzer.o: moc_uiuartanalyzer.cpp 
+moc_uiuartanalyzer.o: moc_uiuartanalyzer.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiuartanalyzer.o moc_uiuartanalyzer.cpp
 
-moc_uartgenerator.o: moc_uartgenerator.cpp 
+moc_uartgenerator.o: moc_uartgenerator.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uartgenerator.o moc_uartgenerator.cpp
 
-moc_uianalyzerconfig.o: moc_uianalyzerconfig.cpp 
+moc_uianalyzerconfig.o: moc_uianalyzerconfig.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uianalyzerconfig.o moc_uianalyzerconfig.cpp
 
-moc_uiuartanalyzerconfig.o: moc_uiuartanalyzerconfig.cpp 
+moc_uiuartanalyzerconfig.o: moc_uiuartanalyzerconfig.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiuartanalyzerconfig.o moc_uiuartanalyzerconfig.cpp
 
-moc_spigenerator.o: moc_spigenerator.cpp 
+moc_spigenerator.o: moc_spigenerator.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_spigenerator.o moc_spigenerator.cpp
 
-moc_uii2canalyzerconfig.o: moc_uii2canalyzerconfig.cpp 
+moc_uii2canalyzerconfig.o: moc_uii2canalyzerconfig.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uii2canalyzerconfig.o moc_uii2canalyzerconfig.cpp
 
-moc_uii2canalyzer.o: moc_uii2canalyzer.cpp 
+moc_uii2canalyzer.o: moc_uii2canalyzer.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uii2canalyzer.o moc_uii2canalyzer.cpp
 
-moc_uispianalyzer.o: moc_uispianalyzer.cpp 
+moc_uispianalyzer.o: moc_uispianalyzer.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uispianalyzer.o moc_uispianalyzer.cpp
 
-moc_uispianalyzerconfig.o: moc_uispianalyzerconfig.cpp 
+moc_uispianalyzerconfig.o: moc_uispianalyzerconfig.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uispianalyzerconfig.o moc_uispianalyzerconfig.cpp
 
-moc_device.o: moc_device.cpp 
+moc_device.o: moc_device.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_device.o moc_device.cpp
 
-moc_generatordevice.o: moc_generatordevice.cpp 
+moc_generatordevice.o: moc_generatordevice.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_generatordevice.o moc_generatordevice.cpp
 
-moc_simulatorcapturedevice.o: moc_simulatorcapturedevice.cpp 
+moc_simulatorcapturedevice.o: moc_simulatorcapturedevice.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_simulatorcapturedevice.o moc_simulatorcapturedevice.cpp
 
-moc_simulatordevice.o: moc_simulatordevice.cpp 
+moc_simulatordevice.o: moc_simulatordevice.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_simulatordevice.o moc_simulatordevice.cpp
 
-moc_labtoolcapturedevice.o: moc_labtoolcapturedevice.cpp 
+moc_labtoolcapturedevice.o: moc_labtoolcapturedevice.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtoolcapturedevice.o moc_labtoolcapturedevice.cpp
 
-moc_labtooldevice.o: moc_labtooldevice.cpp 
+moc_labtooldevice.o: moc_labtooldevice.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtooldevice.o moc_labtooldevice.cpp
 
-moc_uidigitalgenerator.o: moc_uidigitalgenerator.cpp 
+moc_uidigitalgenerator.o: moc_uidigitalgenerator.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uidigitalgenerator.o moc_uidigitalgenerator.cpp
 
-moc_uianaloggenerator.o: moc_uianaloggenerator.cpp 
+moc_uianaloggenerator.o: moc_uianaloggenerator.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uianaloggenerator.o moc_uianaloggenerator.cpp
 
-moc_simulatorgeneratordevice.o: moc_simulatorgeneratordevice.cpp 
+moc_simulatorgeneratordevice.o: moc_simulatorgeneratordevice.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_simulatorgeneratordevice.o moc_simulatorgeneratordevice.cpp
 
-moc_labtoolgeneratordevice.o: moc_labtoolgeneratordevice.cpp 
+moc_labtoolgeneratordevice.o: moc_labtoolgeneratordevice.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtoolgeneratordevice.o moc_labtoolgeneratordevice.cpp
 
-moc_uigeneratorarea.o: moc_uigeneratorarea.cpp 
+moc_uigeneratorarea.o: moc_uigeneratorarea.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uigeneratorarea.o moc_uigeneratorarea.cpp
 
-moc_generatorapp.o: moc_generatorapp.cpp 
+moc_generatorapp.o: moc_generatorapp.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_generatorapp.o moc_generatorapp.cpp
 
-moc_digitaldelegate.o: moc_digitaldelegate.cpp 
+moc_digitaldelegate.o: moc_digitaldelegate.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_digitaldelegate.o moc_digitaldelegate.cpp
 
-moc_digitalsignals.o: moc_digitalsignals.cpp 
+moc_digitalsignals.o: moc_digitalsignals.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_digitalsignals.o moc_digitalsignals.cpp
 
-moc_uieditdigital.o: moc_uieditdigital.cpp 
+moc_uieditdigital.o: moc_uieditdigital.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uieditdigital.o moc_uieditdigital.cpp
 
-moc_uieditanalog.o: moc_uieditanalog.cpp 
+moc_uieditanalog.o: moc_uieditanalog.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uieditanalog.o moc_uieditanalog.cpp
 
-moc_uianalogshape.o: moc_uianalogshape.cpp 
+moc_uianalogshape.o: moc_uianalogshape.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uianalogshape.o moc_uianalogshape.cpp
 
-moc_uigeneratorsignaldialog.o: moc_uigeneratorsignaldialog.cpp 
+moc_uigeneratorsignaldialog.o: moc_uigeneratorsignaldialog.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uigeneratorsignaldialog.o moc_uigeneratorsignaldialog.cpp
 
-moc_uimainwindow.o: moc_uimainwindow.cpp 
+moc_uimainwindow.o: moc_uimainwindow.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uimainwindow.o moc_uimainwindow.cpp
 
-moc_uitimeaxis.o: moc_uitimeaxis.cpp 
+moc_uitimeaxis.o: moc_uitimeaxis.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uitimeaxis.o moc_uitimeaxis.cpp
 
-moc_uisimpleabstractsignal.o: moc_uisimpleabstractsignal.cpp 
+moc_uisimpleabstractsignal.o: moc_uisimpleabstractsignal.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uisimpleabstractsignal.o moc_uisimpleabstractsignal.cpp
 
-moc_uiselectsignaldialog.o: moc_uiselectsignaldialog.cpp 
+moc_uiselectsignaldialog.o: moc_uiselectsignaldialog.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiselectsignaldialog.o moc_uiselectsignaldialog.cpp
 
-moc_uiplot.o: moc_uiplot.cpp 
+moc_uiplot.o: moc_uiplot.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiplot.o moc_uiplot.cpp
 
-moc_uimeasurmentarea.o: moc_uimeasurmentarea.cpp 
+moc_uimeasurmentarea.o: moc_uimeasurmentarea.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uimeasurmentarea.o moc_uimeasurmentarea.cpp
 
-moc_uilistspinbox.o: moc_uilistspinbox.cpp 
+moc_uilistspinbox.o: moc_uilistspinbox.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uilistspinbox.o moc_uilistspinbox.cpp
 
-moc_uigrid.o: moc_uigrid.cpp 
+moc_uigrid.o: moc_uigrid.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uigrid.o moc_uigrid.cpp
 
-moc_uidigitaltrigger.o: moc_uidigitaltrigger.cpp 
+moc_uidigitaltrigger.o: moc_uidigitaltrigger.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uidigitaltrigger.o moc_uidigitaltrigger.cpp
 
-moc_uidigitalsignal.o: moc_uidigitalsignal.cpp 
+moc_uidigitalsignal.o: moc_uidigitalsignal.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uidigitalsignal.o moc_uidigitalsignal.cpp
 
-moc_uidigitalgroup.o: moc_uidigitalgroup.cpp 
+moc_uidigitalgroup.o: moc_uidigitalgroup.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uidigitalgroup.o moc_uidigitalgroup.cpp
 
-moc_uicursorgroup.o: moc_uicursorgroup.cpp 
+moc_uicursorgroup.o: moc_uicursorgroup.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uicursorgroup.o moc_uicursorgroup.cpp
 
-moc_uicursor.o: moc_uicursor.cpp 
+moc_uicursor.o: moc_uicursor.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uicursor.o moc_uicursor.cpp
 
-moc_uicapturearea.o: moc_uicapturearea.cpp 
+moc_uicapturearea.o: moc_uicapturearea.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uicapturearea.o moc_uicapturearea.cpp
 
-moc_uianalogtrigger.o: moc_uianalogtrigger.cpp 
+moc_uianalogtrigger.o: moc_uianalogtrigger.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uianalogtrigger.o moc_uianalogtrigger.cpp
 
-moc_uianalogsignal.o: moc_uianalogsignal.cpp 
+moc_uianalogsignal.o: moc_uianalogsignal.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uianalogsignal.o moc_uianalogsignal.cpp
 
-moc_uianaloggroup.o: moc_uianaloggroup.cpp 
+moc_uianaloggroup.o: moc_uianaloggroup.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uianaloggroup.o moc_uianaloggroup.cpp
 
-moc_uiabstractsignal.o: moc_uiabstractsignal.cpp 
+moc_uiabstractsignal.o: moc_uiabstractsignal.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiabstractsignal.o moc_uiabstractsignal.cpp
 
-moc_uiabstractplotitem.o: moc_uiabstractplotitem.cpp 
+moc_uiabstractplotitem.o: moc_uiabstractplotitem.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiabstractplotitem.o moc_uiabstractplotitem.cpp
 
-moc_signalmanager.o: moc_signalmanager.cpp 
+moc_signalmanager.o: moc_signalmanager.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_signalmanager.o moc_signalmanager.cpp
 
-moc_captureapp.o: moc_captureapp.cpp 
+moc_captureapp.o: moc_captureapp.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_captureapp.o moc_captureapp.cpp
 
-moc_uicaptureexporter.o: moc_uicaptureexporter.cpp 
+moc_uicaptureexporter.o: moc_uicaptureexporter.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uicaptureexporter.o moc_uicaptureexporter.cpp
 
-moc_labtoolcalibrationwizard.o: moc_labtoolcalibrationwizard.cpp 
+moc_labtoolcalibrationwizard.o: moc_labtoolcalibrationwizard.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtoolcalibrationwizard.o moc_labtoolcalibrationwizard.cpp
 
-moc_labtoolcalibrationwizardintropage.o: moc_labtoolcalibrationwizardintropage.cpp 
+moc_labtoolcalibrationwizardintropage.o: moc_labtoolcalibrationwizardintropage.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtoolcalibrationwizardintropage.o moc_labtoolcalibrationwizardintropage.cpp
 
-moc_labtoolcalibrationwizardconclusionpage.o: moc_labtoolcalibrationwizardconclusionpage.cpp 
+moc_labtoolcalibrationwizardconclusionpage.o: moc_labtoolcalibrationwizardconclusionpage.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtoolcalibrationwizardconclusionpage.o moc_labtoolcalibrationwizardconclusionpage.cpp
 
-moc_labtoolcalibrationwizardanalogout.o: moc_labtoolcalibrationwizardanalogout.cpp 
+moc_labtoolcalibrationwizardanalogout.o: moc_labtoolcalibrationwizardanalogout.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtoolcalibrationwizardanalogout.o moc_labtoolcalibrationwizardanalogout.cpp
 
-moc_labtoolcalibrationwizardanalogin.o: moc_labtoolcalibrationwizardanalogin.cpp 
+moc_labtoolcalibrationwizardanalogin.o: moc_labtoolcalibrationwizardanalogin.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtoolcalibrationwizardanalogin.o moc_labtoolcalibrationwizardanalogin.cpp
 
 ####### Install
